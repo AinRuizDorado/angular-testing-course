@@ -1,3 +1,4 @@
+import { TestBed } from "@angular/core/testing";
 import { CalculatorService } from "./calculator.service";
 import { LoggerService } from "./logger.service";
 
@@ -10,8 +11,14 @@ describe('CalculatorService', () =>{
         console.log('Before Each');
         loggerSpy = jasmine.createSpyObj('LoggerService', ["log"]);
 
+        TestBed.configureTestingModule({
+            providers: [
+                CalculatorService,
+                {provide: LoggerService, useValue: loggerSpy}
+            ]
+        });
 
-        calculator = new CalculatorService(loggerSpy);
+        calculator = TestBed.inject(CalculatorService);
     })
 
 
